@@ -36,9 +36,9 @@ void initsem(SEMAFORO *sem, int i)
 
 void waitsem(SEMAFORO *sem)
 {
-	if (sem->valor == 1)
-		sem->valor = 0;
-	else 
+	sem->valor--;
+
+	if (sem->valor < 0)
 	{
 		//Pone el proceso en s.cola_de_bloqueados
 		sem->cola[sem->final] = getpid();
@@ -52,10 +52,9 @@ void waitsem(SEMAFORO *sem)
 
 void signalsem(SEMAFORO *sem)
 {
-	//Si la cola de procesos esta vacía el valor es 1
-	if (sem->valor == 0)
-		sem->valor = 1;
-	else 
+	sem->valor++;
+
+	if (sem->valor <= 0)
 	{
 		int tempproc = sem->cola[sem->inicio];
 		sem->inicio = (sem->inicio + 1) % NPROC;
