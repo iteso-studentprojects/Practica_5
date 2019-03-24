@@ -23,7 +23,7 @@ typedef struct SEMAFORO
 void initsem(SEMAFORO *sem, int i)
 {
 	//Inicializa el semaforo en 1
-	sem->valor = 1;
+	sem->valor = i;
 
 	//Inicializa la cola de procesos
 	sem->inicio = sem->final = 0;
