@@ -30,7 +30,7 @@ void initsem(SEMAFORO *sem, int i)
 	//sem->final = 0;
 
 
-	printf("Semaforo inicializado\ninicio: %d\nfinal %d\n", sem->inicio, sem->final);
+	printf("fSemaforo inicializado\ninicio: %d\nfinal %d\n", sem->inicio, sem->final);
 
 }
 
@@ -56,11 +56,11 @@ void signalsem(SEMAFORO *sem)
 
 	if (sem->valor <= 0)
 	{
-		int tempproc = sem->cola[sem->inicio];
+		//int tempproc = sem->cola[sem->inicio];
 		sem->inicio = (sem->inicio + 1) % NPROC;
 
-		kill(tempproc, SIGCONT);
+		//Reanuda el proceso
+		kill(sem->cola[sem->inicio] , SIGCONT);
 	}
-	//Reanuda el proceso
-	//kill(pid, SIGCONT);
+	
 }
